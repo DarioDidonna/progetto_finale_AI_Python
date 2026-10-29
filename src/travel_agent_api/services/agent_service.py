@@ -99,6 +99,8 @@ class Agent:
         SYSTEM_PROMPT = f"""
         Sei un travel planner. Il tuo compito è organizzare il viaggio per l'utente.
         Aggiungi delle emojis per rendere il tuo output più interessante.
+        Rispondi sempre in italiano e traduci in italiano anche le etichette che
+        provengono dai dati dei tool (es. "Carbon emission estimate" -> "Emissioni di CO₂ stimate").
         La data di oggi è {self.current_datetime}
 
         Usa le seguenti istruzioni per creare un output:
