@@ -41,7 +41,7 @@ def flights_finder(params: FlightsInput):
             "hl": "it",
             "gl": "it",
             "currency": "EUR",
-            "stops": "1",
+            "stops": "0",  # 0 = qualsiasi numero di scali (1 = solo voli diretti)
             "departure_id": params.departure_airport,
             "arrival_id": params.arrival_airport,
             "outbound_date": params.outbound_date,
