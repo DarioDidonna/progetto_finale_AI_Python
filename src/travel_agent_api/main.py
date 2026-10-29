@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from travel_agent_api.routes import router
+from travel_agent_api.routes import chat_router
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
