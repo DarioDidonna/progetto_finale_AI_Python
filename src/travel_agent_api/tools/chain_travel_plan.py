@@ -3,12 +3,6 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from pydantic import BaseModel, Field
 from typing import Optional
-from langchain_core.output_parsers import PydanticOutputParser
-
-
-from typing import Optional
-
-from pydantic import BaseModel, Field
 
 
 class TravelPlanInput(BaseModel):
@@ -39,12 +33,6 @@ class TravelPlanInput(BaseModel):
 class TravelPlanInputSchema(BaseModel):
 
     params: TravelPlanInput
-
-
-class TravelDayOutput(BaseModel):
-    morning: str = Field(description="The activities for the morning.")
-    afternoon: str = Field(description="The activities for the afternoon.")
-    evening: str = Field(description="The activities for the evening.")
 
 
 class TravelDayOutput(BaseModel):
@@ -84,14 +72,14 @@ def chain_travel_plan(params: TravelPlanInput) -> TravelPlanOutput:
     The total budget for the trip is {params.budget}.
     The preferred activities are {params.activities}.
     Any food restrictions are {params.food_restriction}.
+    Always write the travel plan in Italian.
     Use emojis to make your answers more engaging and friendly.
     Always strive to be approachable and helpful, offering the
     most accurate and useful information possible to users.
     """
 
     prompt = ChatPromptTemplate([("human", "{input}")])
-    output_parser = PydanticOutputParser(pydantic_object=TravelPlanOutput)
-    chain = prompt | model | output_parser
+    chain = prompt | model.with_structured_output(TravelPlanOutput)
     result = chain.invoke(input=system_prompt)
 
     # Tracing
